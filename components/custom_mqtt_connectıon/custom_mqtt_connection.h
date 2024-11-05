@@ -34,7 +34,7 @@ namespace custom_mqtt_connection {
         }
         void loop() override;
         void setup() override;
-        
+
         void set_test(esphome::gpio::GPIOSwitch *test_switch) { 
             test_switch_ = test_switch; 
         }
@@ -47,3 +47,5 @@ namespace custom_mqtt_connection {
 
     }:
 }}
+
+#endif
