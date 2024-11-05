@@ -45,7 +45,7 @@ namespace custom_mqtt_connection {
 
         mqtt::MQTTSwitchComponent  *testmqtt;
 
-    }:
+    };
 }}
 
 #endif
