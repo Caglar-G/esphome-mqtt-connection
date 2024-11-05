@@ -32,12 +32,9 @@ namespace custom_mqtt_connection {
         void set_global_addr(globals::RestoringGlobalStringComponent<std::string, 64> *ga_in) {
             global_forced_addr = ga_in;
         }
-        void setup() override {
-            // Setup code
-        }
-         void loop() override {
-           
-        }
+        void loop() override;
+        void setup() override;
+        
         void set_test(esphome::gpio::GPIOSwitch *test_switch) { 
             test_switch_ = test_switch; 
         }
@@ -48,5 +45,5 @@ namespace custom_mqtt_connection {
 
         mqtt::MQTTSwitchComponent  *testmqtt;
 
-    }
+    }:
 }}
