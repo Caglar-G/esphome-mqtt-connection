@@ -21,6 +21,7 @@ namespace esphome {
 namespace custom_mqtt_connection {
 
     static const char *TAG = "custom_component";
+    CustomMQTTConnection::CustomBleController() { }
 
     void CustomMQTTConnection::setup() {
         ESP_LOGD(TAG, "Setting up CustomComponent...");
