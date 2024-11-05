@@ -25,7 +25,8 @@ namespace custom_mqtt_connection {
 
     void CustomMQTTConnection::setup() {
         ESP_LOGD(TAG, "Setting up CustomComponent...");
-        mqtt::global_mqtt_client->subscribe("test",
+        //devices/e89a85eb-452e-4111-9494-619d9ddea73a/0x0006/0/attributes/0x0000
+        mqtt::global_mqtt_client->subscribe("devices/"+id(global_forced_addr)+"/0x0006/0/commands",
         [this](const std::string &topic, const std::string &payload) {
             ESP_LOGW(TAG, "Can't convert '%s' to number!", payload.c_str());
             
