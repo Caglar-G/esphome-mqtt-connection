@@ -28,6 +28,7 @@ namespace esphome {
 namespace custom_mqtt_connection {
     class CustomMQTTConnection : public Component {
         public:
+        CustomMQTTConnection(); 
         globals::RestoringGlobalStringComponent<std::string, 64> *global_forced_addr;
         void set_global_addr(globals::RestoringGlobalStringComponent<std::string, 64> *ga_in) {
             global_forced_addr = ga_in;
