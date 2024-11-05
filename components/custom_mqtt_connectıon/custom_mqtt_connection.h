@@ -1,0 +1,52 @@
+#pragma once
+
+#include "esphome/core/component.h"
+#include "esphome/core/defines.h"
+#include "esphome/core/helpers.h"
+#include "esphome/core/preferences.h"
+
+#include "esphome/components/globals/globals_component.h"
+#include "esphome/components/switch/switch.h"
+#include "esphome/components/gpio/switch/gpio_switch.h"
+#include "esphome/components/mqtt/mqtt_switch.h"
+
+
+#ifdef USE_BINARY_SENSOR
+#include "esphome/components/binary_sensor/binary_sensor.h"
+#endif
+
+#ifdef USE_OUTPUT
+#include "esphome/components/output/binary_output.h"
+#endif
+
+#include <vector>
+
+#ifdef USE_ESP32
+
+
+namespace esphome {
+namespace custom_mqtt_connection {
+    class CustomMQTTConnection : public Component {
+        public:
+        globals::RestoringGlobalStringComponent<std::string, 64> *global_forced_addr;
+        void set_global_addr(globals::RestoringGlobalStringComponent<std::string, 64> *ga_in) {
+            global_forced_addr = ga_in;
+        }
+        void setup() override {
+            // Setup code
+        }
+         void loop() override {
+           
+        }
+        void set_test(esphome::gpio::GPIOSwitch *test_switch) { 
+            test_switch_ = test_switch; 
+        }
+
+        protected:
+        globals::GlobalsComponent<std::string>  *deviceId_;
+        esphome::gpio::GPIOSwitch *test_switch_{nullptr};
+
+        mqtt::MQTTSwitchComponent  *testmqtt;
+
+    }
+}}
