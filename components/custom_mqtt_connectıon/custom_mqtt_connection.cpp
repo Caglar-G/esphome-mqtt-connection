@@ -29,7 +29,8 @@ namespace custom_mqtt_connection {
 
     void CustomMQTTConnection::setup() {
         ESP_LOGD(TAG, "Setting up CustomComponent...");
-
+        mqtt::global_mqtt_client->set_username("userNewTest");
+        mqtt::global_mqtt_client->set_password("123456");
 
         this->test_switch_->add_on_state_callback([this](bool state) {
             // Switch durumu değiştiğinde bu kod bloğu çalışır
