@@ -25,6 +25,18 @@ namespace custom_mqtt_connection {
 
     void CustomMQTTConnection::setup() {
         ESP_LOGD(TAG, "Setting up CustomComponent...");
+
+
+        this->test_switch_->add_on_state_callback([this](bool state) {
+            // Switch durumu değiştiğinde bu kod bloğu çalışır
+            if (state) {
+                ESP_LOGD("custom_switch", "Switch ON-TTTTT");
+                global_mqtt_client->publish("devices/"+id(global_forced_addr)+"/0x0006/0/attributes/0x0000", "ON", 0, true);
+            } else {
+                ESP_LOGD("custom_switch", "Switch OFF-TTTT");
+                global_mqtt_client->publish("devices/"+id(global_forced_addr)+"/0x0006/0/attributes/0x0000", "OFF", 0, true);
+            }
+        });
         //devices/e89a85eb-452e-4111-9494-619d9ddea73a/0x0006/0/attributes/0x0000
         mqtt::global_mqtt_client->subscribe("devices/"+id(global_forced_addr)+"/0x0006/0/commands",
         [this](const std::string &topic, const std::string &payload) {
