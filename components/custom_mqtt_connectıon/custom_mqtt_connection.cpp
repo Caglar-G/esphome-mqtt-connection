@@ -31,12 +31,10 @@ namespace custom_mqtt_connection {
             // Switch durumu değiştiğinde bu kod bloğu çalışır
             if (state) {
                 ESP_LOGD("custom_switch", "Switch ON-TTTTT");
-                const char *str = "ON";
-                mqtt::global_mqtt_client->publish("devices/"+id(global_forced_addr)+"/0x0006/0/attributes/0x0000", str,strlen(str), 0, true);
+                mqtt::global_mqtt_client->publish("devices/"+id(global_forced_addr)+"/0x0006/0/attributes/0x0000", "ON", 1, true);
             } else {
                 ESP_LOGD("custom_switch", "Switch OFF-TTTT");
-                const char *str = "OFF";
-                mqtt::global_mqtt_client->publish("devices/"+id(global_forced_addr)+"/0x0006/0/attributes/0x0000", str,strlen(str), 0, true);
+                mqtt::global_mqtt_client->publish("devices/"+id(global_forced_addr)+"/0x0006/0/attributes/0x0000", "OFF", 1, true);
             }
         });
         //devices/e89a85eb-452e-4111-9494-619d9ddea73a/0x0006/0/attributes/0x0000
