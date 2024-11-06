@@ -34,6 +34,20 @@ namespace custom_mqtt_connection {
         void set_global_addr(globals::RestoringGlobalStringComponent<std::string, 64> *ga_in) {
             global_forced_addr = ga_in;
         }
+        //BrokerId
+        globals::RestoringGlobalStringComponent<std::string, 64> *brokerAddress;
+        void set_brokerAddress(globals::RestoringGlobalStringComponent<std::string, 64> *ga_in) {
+            brokerAddress = ga_in;
+        }
+        globals::RestoringGlobalStringComponent<std::string, 64> *brokerUserName;
+        void set_brokerUserName(globals::RestoringGlobalStringComponent<std::string, 64> *ga_in) {
+            brokerUserName = ga_in;
+        }
+        globals::RestoringGlobalStringComponent<std::string, 64> *brokerPassword;
+        void set_brokerPassword(globals::RestoringGlobalStringComponent<std::string, 64> *ga_in) {
+            brokerPassword = ga_in;
+        }
+        //
         void loop() override;
         void setup() override;
 

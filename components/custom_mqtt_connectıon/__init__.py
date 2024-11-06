@@ -16,6 +16,9 @@ CONFIG_SCHEMA = cv.Schema(
     {
         cv.GenerateID(): cv.declare_id(CustomComponent),
         cv.Optional("global_addr"): cv.use_id(globals),
+        cv.Required("brokerAddress"): cv.use_id(globals),
+        cv.Required("brokerUserName"): cv.use_id(globals),
+        cv.Required("brokerPassword"): cv.use_id(globals),
         cv.Required(CONF_TEST): cv.use_id(switch.Switch),
 
     }
@@ -28,6 +31,15 @@ async def to_code(config):
 
     ga = await cg.get_variable(config["global_addr"])
     cg.add(var.set_global_addr(ga))
+
+    ga = await cg.get_variable(config["brokerAddress"])
+    cg.add(var.set_brokerAddress(ga))
+
+    ga = await cg.get_variable(config["brokerUserName"])
+    cg.add(var.set_brokerUserName(ga))
+
+    ga = await cg.get_variable(config["brokerPassword"])
+    cg.add(var.set_brokerPassword(ga))
 
     test_switch = await cg.get_variable(config[CONF_TEST])
     cg.add(var.set_test(test_switch))
