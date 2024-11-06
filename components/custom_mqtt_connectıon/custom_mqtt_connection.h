@@ -48,7 +48,6 @@ namespace custom_mqtt_connection {
 
         mqtt::MQTTSwitchComponent  *testmqtt;
         esp_timer_handle_t timer_handle;
-        static void espTimerCallback(void* arg);
     };
 }}
 

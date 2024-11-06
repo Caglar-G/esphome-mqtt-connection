@@ -71,10 +71,19 @@ namespace custom_mqtt_connection {
 
 
        const esp_timer_create_args_t periodic_timer_args = {
-            .callback        = &CustomMQTTConnection::espTimerCallback,
-            .arg             = nullptr,
+            .callback = [](void *arg) {
+                // 'arg' parametresi ile 'this' işaretçisini alıyoruz
+                CustomMQTTConnection *component = static_cast<CustomMQTTConnection*>(arg);
+                // Şimdi sınıfın metoduna erişebiliriz
+                ESP_LOGD("custom_switch", "Timer");
+                const char *str = "OFF";
+                mqtt::global_mqtt_client->publish("devices/"+id(component->global_forced_addr)+"/heartbeat", str,strlen(str), 1, true);
+  
+            },            
+            .arg             = this,
             .dispatch_method = ESP_TIMER_TASK,
-            .name            = "lv_tick_action"
+            .name            = "lv_tick_action",
+            .skip_unhandled_events = false,
         };
 
         // Timer'ı oluşturuyoruz
@@ -86,9 +95,6 @@ namespace custom_mqtt_connection {
     }
     void CustomMQTTConnection::loop() {
 
-    }
-    void CustomMQTTConnection::espTimerCallback(void* arg) {
-        ESP_LOGD("custom_switch", "Timer");
     }
     /*
     void CustomMQTTConnection::cleanup() {
