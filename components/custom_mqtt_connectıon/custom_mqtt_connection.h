@@ -36,7 +36,6 @@ namespace custom_mqtt_connection {
         }
         void loop() override;
         void setup() override;
-        void cleanup() override;
 
         void set_test(esphome::gpio::GPIOSwitch *test_switch) { 
             ESP_LOGD("early", "setTest");

@@ -92,10 +92,11 @@ namespace custom_mqtt_connection {
     void CustomMQTTConnection::loop() {
 
     }
+    /*
     void CustomMQTTConnection::cleanup() {
         esp_timer_stop(timer_handle);  // Timer'ı durdur
         ESP_LOGD(TAG, "Timer durduruldu.");
-    }
+    }*/
 
    
 }}
