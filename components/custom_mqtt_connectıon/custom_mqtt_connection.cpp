@@ -27,13 +27,6 @@ namespace custom_mqtt_connection {
 
     CustomMQTTConnection::CustomMQTTConnection() { }
 
-
-    void timer_callback(void *arg) {
-    ESP_LOGD("core", "5 saniye geçti, işlem yapılıyor.");
-    // Burada işleminizi gerçekleştirebilirsiniz. Örnek: MQTT mesajı gönderme
-    // mqtt_client->publish("topic/test", "Hello World", 0, false);
-    }
-
     void CustomMQTTConnection::setup() {
         ESP_LOGD(TAG, "Setting up CustomComponent...");
 
@@ -77,13 +70,15 @@ namespace custom_mqtt_connection {
 
 
 
-        esp_timer_create_args_t timer_args = {
-            .callback = timer_callback,  // Callback fonksiyonu
-            .name = "periodic_timer"
+       const esp_timer_create_args_t periodic_timer_args = {
+            .callback        = &CustomMQTTConnection::espTimerCallback,
+            .arg             = nullptr,
+            .dispatch_method = ESP_TIMER_TASK,
+            .name            = "lv_tick_action"
         };
 
         // Timer'ı oluşturuyoruz
-        esp_timer_create(&timer_args, &timer_handle);
+        esp_timer_create(&periodic_timer_args, &timer_handle);
 
         // Timer'ı her 5 saniyede bir çalışacak şekilde başlatıyoruz
         esp_timer_start_periodic(timer_handle, 5000000);
@@ -91,6 +86,9 @@ namespace custom_mqtt_connection {
     }
     void CustomMQTTConnection::loop() {
 
+    }
+    void CustomMQTTConnection::espTimerCallback(void* arg) {
+        ESP_LOGD("custom_switch", "Timer");
     }
     /*
     void CustomMQTTConnection::cleanup() {
