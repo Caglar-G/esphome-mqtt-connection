@@ -10,6 +10,7 @@
 #include "esphome/components/gpio/switch/gpio_switch.h"
 #include "esphome/components/mqtt/mqtt_switch.h"
 
+#include "esp_timer.h"
 
 #ifdef USE_BINARY_SENSOR
 #include "esphome/components/binary_sensor/binary_sensor.h"
@@ -35,6 +36,7 @@ namespace custom_mqtt_connection {
         }
         void loop() override;
         void setup() override;
+        void cleanup() override;
 
         void set_test(esphome::gpio::GPIOSwitch *test_switch) { 
             ESP_LOGD("early", "setTest");
@@ -46,6 +48,8 @@ namespace custom_mqtt_connection {
         esphome::gpio::GPIOSwitch *test_switch_{nullptr};
 
         mqtt::MQTTSwitchComponent  *testmqtt;
+        esp_timer_handle_t timer_handle;
+        static void timer_callback(void *arg);
 
     };
 }}

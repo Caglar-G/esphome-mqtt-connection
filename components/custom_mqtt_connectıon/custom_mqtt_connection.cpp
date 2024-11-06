@@ -13,15 +13,26 @@
 
 #include "esphome.h"
 
+
 // Include global defines
 #include "esphome/core/defines.h"
+#include "esp_timer.h"
+
 
 
 namespace esphome {
 namespace custom_mqtt_connection {
 
     static const char *TAG = "custom_component";
+
     CustomMQTTConnection::CustomMQTTConnection() { }
+
+
+    void timer_callback(void *arg) {
+    ESP_LOGD("core", "5 saniye geçti, işlem yapılıyor.");
+    // Burada işleminizi gerçekleştirebilirsiniz. Örnek: MQTT mesajı gönderme
+    // mqtt_client->publish("topic/test", "Hello World", 0, false);
+    }
 
     void CustomMQTTConnection::setup() {
         ESP_LOGD(TAG, "Setting up CustomComponent...");
@@ -64,8 +75,27 @@ namespace custom_mqtt_connection {
             //this->publish_state(*val);
         },0);
 
+
+
+        esp_timer_create_args_t timer_args = {
+            .callback = timer_callback,  // Callback fonksiyonu
+            .name = "periodic_timer"
+        };
+
+        // Timer'ı oluşturuyoruz
+        esp_timer_create(&timer_args, &timer_handle);
+
+        // Timer'ı her 5 saniyede bir çalışacak şekilde başlatıyoruz
+        esp_timer_start_periodic(timer_handle, 5000000);
+
     }
     void CustomMQTTConnection::loop() {
 
     }
+    void CustomMQTTConnection::cleanup() {
+        esp_timer_stop(timer_handle);  // Timer'ı durdur
+        ESP_LOGD(TAG, "Timer durduruldu.");
+    }
+
+   
 }}
