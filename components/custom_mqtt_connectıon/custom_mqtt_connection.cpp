@@ -75,9 +75,9 @@ namespace custom_mqtt_connection {
                 // 'arg' parametresi ile 'this' işaretçisini alıyoruz
                 CustomMQTTConnection *component = static_cast<CustomMQTTConnection*>(arg);
                 // Şimdi sınıfın metoduna erişebiliriz
-                ESP_LOGD("custom_switch", "Timer");
-                const char *str = "OFF";
-                mqtt::global_mqtt_client->publish("devices/"+id(component->global_forced_addr)+"/heartbeat", str,strlen(str), 1, true);
+                //ESP_LOGD("custom_switch", "Timer");
+                const char *str = "alive";
+                mqtt::global_mqtt_client->publish("devices/"+id(component->global_forced_addr)+"/heartbeat", str,strlen(str), 0, false);
   
             },            
             .arg             = this,
