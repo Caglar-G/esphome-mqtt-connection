@@ -33,7 +33,38 @@ namespace custom_mqtt_connection {
         mqtt::global_mqtt_client->set_password(id(brokerPassword));
 
         mqtt::global_mqtt_client->set_on_disconnect([this](mqtt::MQTTClientDisconnectReason reason) {
-            ESP_LOGW(TAG, "set_on_disconnect - %d", static_cast<int>(reason));
+            const char* reason_text = "";
+            switch (reason) {
+                case MQTTClientDisconnectReason::TCP_DISCONNECTED:
+                    reason_text = "TCP Disconnected";
+                    break;
+                case MQTTClientDisconnectReason::MQTT_UNACCEPTABLE_PROTOCOL_VERSION:
+                    reason_text = "Unacceptable Protocol Version";
+                    break;
+                case MQTTClientDisconnectReason::MQTT_IDENTIFIER_REJECTED:
+                    reason_text = "Identifier Rejected";
+                    break;
+                case MQTTClientDisconnectReason::MQTT_SERVER_UNAVAILABLE:
+                    reason_text = "Server Unavailable";
+                    break;
+                case MQTTClientDisconnectReason::MQTT_MALFORMED_CREDENTIALS:
+                    reason_text = "Malformed Credentials";
+                    break;
+                case MQTTClientDisconnectReason::MQTT_NOT_AUTHORIZED:
+                    reason_text = "Not Authorized";
+                    break;
+                case MQTTClientDisconnectReason::ESP8266_NOT_ENOUGH_SPACE:
+                    reason_text = "ESP8266 Not Enough Space";
+                    break;
+                case MQTTClientDisconnectReason::TLS_BAD_FINGERPRINT:
+                    reason_text = "TLS Bad Fingerprint";
+                    break;
+                default:
+                    reason_text = "Unknown Reason";
+                    break;
+            }
+
+            ESP_LOGW("custom_mqtt_connection", "Disconnect reason: %s", reason_text);    
         });
 
 
