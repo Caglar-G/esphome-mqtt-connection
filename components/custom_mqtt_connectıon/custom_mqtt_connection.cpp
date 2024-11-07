@@ -32,6 +32,11 @@ namespace custom_mqtt_connection {
         mqtt::global_mqtt_client->set_username(id(brokerUserName));
         mqtt::global_mqtt_client->set_password(id(brokerPassword));
 
+        mqtt::global_mqtt_client->set_on_disconnect([this](int error_code) {
+            ESP_LOGD("set_on_disconnect-%d", error_code);
+        });
+
+
         this->test_switch_->add_on_state_callback([this](bool state) {
             // Switch durumu değiştiğinde bu kod bloğu çalışır
                        
