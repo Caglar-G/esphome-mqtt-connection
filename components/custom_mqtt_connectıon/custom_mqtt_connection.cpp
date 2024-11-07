@@ -35,28 +35,28 @@ namespace custom_mqtt_connection {
         mqtt::global_mqtt_client->set_on_disconnect([this](mqtt::MQTTClientDisconnectReason reason) {
             const char* reason_text = "";
             switch (reason) {
-                case MQTTClientDisconnectReason::TCP_DISCONNECTED:
+                case mqtt::MQTTClientDisconnectReason::TCP_DISCONNECTED:
                     reason_text = "TCP Disconnected";
                     break;
-                case MQTTClientDisconnectReason::MQTT_UNACCEPTABLE_PROTOCOL_VERSION:
+                case mqtt::MQTTClientDisconnectReason::MQTT_UNACCEPTABLE_PROTOCOL_VERSION:
                     reason_text = "Unacceptable Protocol Version";
                     break;
-                case MQTTClientDisconnectReason::MQTT_IDENTIFIER_REJECTED:
+                case mqtt::MQTTClientDisconnectReason::MQTT_IDENTIFIER_REJECTED:
                     reason_text = "Identifier Rejected";
                     break;
-                case MQTTClientDisconnectReason::MQTT_SERVER_UNAVAILABLE:
+                case mqtt::MQTTClientDisconnectReason::MQTT_SERVER_UNAVAILABLE:
                     reason_text = "Server Unavailable";
                     break;
-                case MQTTClientDisconnectReason::MQTT_MALFORMED_CREDENTIALS:
+                case mqtt::MQTTClientDisconnectReason::MQTT_MALFORMED_CREDENTIALS:
                     reason_text = "Malformed Credentials";
                     break;
-                case MQTTClientDisconnectReason::MQTT_NOT_AUTHORIZED:
+                case mqtt::MQTTClientDisconnectReason::MQTT_NOT_AUTHORIZED:
                     reason_text = "Not Authorized";
                     break;
-                case MQTTClientDisconnectReason::ESP8266_NOT_ENOUGH_SPACE:
+                case mqtt::MQTTClientDisconnectReason::ESP8266_NOT_ENOUGH_SPACE:
                     reason_text = "ESP8266 Not Enough Space";
                     break;
-                case MQTTClientDisconnectReason::TLS_BAD_FINGERPRINT:
+                case mqtt::MQTTClientDisconnectReason::TLS_BAD_FINGERPRINT:
                     reason_text = "TLS Bad Fingerprint";
                     break;
                 default:
