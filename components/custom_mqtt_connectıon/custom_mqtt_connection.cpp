@@ -32,8 +32,8 @@ namespace custom_mqtt_connection {
         mqtt::global_mqtt_client->set_username(id(brokerUserName));
         mqtt::global_mqtt_client->set_password(id(brokerPassword));
 
-        mqtt::global_mqtt_client->set_on_disconnect([this](int error_code) {
-            ESP_LOGD("set_on_disconnect-%d", error_code);
+        mqtt::global_mqtt_client->set_on_disconnect([this](mqtt::MQTTClientDisconnectReason reason) {
+            ESP_LOGW(TAG, "set_on_disconnect - %d", static_cast<int>(reason));
         });
 
 
