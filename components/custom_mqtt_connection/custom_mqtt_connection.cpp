@@ -31,6 +31,7 @@ namespace custom_mqtt_connection {
         ESP_LOGD(TAG, "Setting up CustomComponent...");
         mqtt::global_mqtt_client->set_username(id(brokerUserName));
         mqtt::global_mqtt_client->set_password(id(brokerPassword));
+        mqtt::global_mqtt_client->set_client_id(id(global_forced_addr));
 
         mqtt::global_mqtt_client->set_on_disconnect([this](mqtt::MQTTClientDisconnectReason reason) {
             const char* reason_text = "";
@@ -103,6 +104,12 @@ namespace custom_mqtt_connection {
             }*/
 
             //this->publish_state(*val);
+        },0);
+
+         mqtt::global_mqtt_client->subscribe("devices/"+id(global_forced_addr)+"/setToken",
+        [this](const std::string &topic, const std::string &payload) {
+            ESP_LOGW(TAG, "SetToken:", payload.c_str());
+            id(brokerPassword) = data_str;
         },0);
 
 
