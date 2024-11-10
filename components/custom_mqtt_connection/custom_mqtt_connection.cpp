@@ -108,7 +108,7 @@ namespace custom_mqtt_connection {
 
          mqtt::global_mqtt_client->subscribe("devices/"+id(global_forced_addr)+"/setToken",
         [this](const std::string &topic, const std::string &payload) {
-            ESP_LOGD(TAG, "SetToken:", payload);
+            //ESP_LOGD(TAG, "SetToken:", payload);
             id(brokerPassword) = payload;
         },0);
 
