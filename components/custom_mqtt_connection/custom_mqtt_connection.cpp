@@ -32,6 +32,8 @@ namespace custom_mqtt_connection {
         mqtt::global_mqtt_client->set_username(id(brokerUserName));
         mqtt::global_mqtt_client->set_password(id(brokerPassword));
         mqtt::global_mqtt_client->set_client_id(id(global_forced_addr));
+        mqtt::global_mqtt_client->set_clean_session(true);
+        
 
         mqtt::global_mqtt_client->set_on_disconnect([this](mqtt::MQTTClientDisconnectReason reason) {
             const char* reason_text = "";
