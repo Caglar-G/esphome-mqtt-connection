@@ -86,6 +86,7 @@ namespace custom_mqtt_connection {
 
         });
         //devices/e89a85eb-452e-4111-9494-619d9ddea73a/0x0006/0/attributes/0x0000
+        //devices/e89a85eb-452e-4111-9494-619d9ddea73a/0x0006/0/commands
         mqtt::global_mqtt_client->subscribe("devices/"+id(global_forced_addr)+"/0x0006/0/commands",
         [this](const std::string &topic, const std::string &payload) {
             ESP_LOGW(TAG, "Can't convert '%s' to number!", payload.c_str());
@@ -111,8 +112,14 @@ namespace custom_mqtt_connection {
          mqtt::global_mqtt_client->subscribe("devices/"+id(global_forced_addr)+"/setToken",
         [this](const std::string &topic, const std::string &payload) {
             //ESP_LOGD(TAG, "SetToken:", payload);
-            id(brokerPassword) = payload;
-        },0);
+            if (payload != "OK")
+            {
+                id(brokerPassword) = payload;
+                const char *str = "OK";
+                mqtt::global_mqtt_client->publish("devices/"+id(global_forced_addr)+"/setToken", str,strlen(str), 1, true);
+            }
+            
+        },2);
 
 
 
