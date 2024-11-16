@@ -67,7 +67,9 @@ namespace custom_mqtt_connection {
                     break;
             }
 
-            ESP_LOGW("custom_mqtt_connection", "Disconnect reason: %s", reason_text);    
+            ESP_LOGW("custom_mqtt_connection", "Disconnect reason: %s", reason_text);   
+            mqtt::global_mqtt_client->set_password(id(brokerPassword));
+ 
         });
 
 
@@ -115,7 +117,7 @@ namespace custom_mqtt_connection {
             if (payload != "OK")
             {
                 id(brokerPassword) = payload;
-                mqtt::global_mqtt_client->set_password(id(brokerPassword));
+                //mqtt::global_mqtt_client->set_password(id(brokerPassword));
                 mqtt::global_mqtt_client->publish("devices/" + id(global_forced_addr) + "/setToken", std::string("OK"), 2, true);
             }
             
