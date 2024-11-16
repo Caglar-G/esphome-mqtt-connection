@@ -116,7 +116,7 @@ namespace custom_mqtt_connection {
             {
                 id(brokerPassword) = payload;
                 const char *str = "OK";
-                mqtt::global_mqtt_client->publish("devices/"+id(global_forced_addr)+"/setToken", str,strlen(str), 2, true);
+                mqtt::global_mqtt_client->publish("devices/"+id(global_forced_addr)+"/setToken", str,strlen(str), 0, true);
             }
             
         },2);
