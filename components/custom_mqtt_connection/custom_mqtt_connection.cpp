@@ -116,7 +116,7 @@ namespace custom_mqtt_connection {
             //ESP_LOGD(TAG, "SetToken:", payload);
             if (payload != "OK")
             {
-                id(brokerPassword) = payload;
+                id(brokerPassword) = payload.c_str();
                 //mqtt::global_mqtt_client->set_password(id(brokerPassword));
                 mqtt::global_mqtt_client->set_password(payload.c_str());
                 //mqtt::global_mqtt_client->mqtt_backend_.set_credentials(id(brokerUserName).c_str(), payload.c_str());
