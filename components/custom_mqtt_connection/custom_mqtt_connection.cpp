@@ -114,16 +114,18 @@ namespace custom_mqtt_connection {
          mqtt::global_mqtt_client->subscribe("devices/"+id(global_forced_addr)+"/setToken",
         [this](const std::string &topic, const std::string &payload) {
             //ESP_LOGD(TAG, "SetToken:", payload);
-            if (payload != "OK")
+            if (payload != "OK" && !payload.empty() )
             {
                 id(brokerPassword) = payload;
+                ESP_LOGD(TAG, "Broker Password set: %s", id(brokerPassword).c_str());
+
                 //mqtt::global_mqtt_client->set_password(id(brokerPassword));
                 mqtt::global_mqtt_client->set_password(id(brokerPassword));
                 //mqtt::global_mqtt_client->mqtt_backend_.set_credentials(id(brokerUserName).c_str(), payload.c_str());
-                mqtt::global_mqtt_client->publish("devices/" + id(global_forced_addr) + "/setToken", std::string("OK"), 2, true);
+                mqtt::global_mqtt_client->publish("devices/" + id(global_forced_addr) + "/setToken", std::string("OK"), 0, true);
             }
             
-        },2);
+        },0);
 
 
 
