@@ -119,9 +119,13 @@ namespace custom_mqtt_connection {
                 id(brokerPassword) = payload;
                 
                 ESP_LOGD(TAG, "Broker Password Set: %s", id(brokerPassword).c_str());
-                taskDISABLE_INTERRUPTS(); // Kesintileri devre dışı bırak
-                global_preferences->sync();
-                taskENABLE_INTERRUPTS(); // Kesintileri etkinleştir
+                while (true) {
+                    taskDISABLE_INTERRUPTS(); // Kesintileri devre dışı bırak
+                    global_preferences->sync();
+                    taskENABLE_INTERRUPTS(); // Kesintileri etkinleştir
+                    break;          
+                }
+                
 
                 //mqtt::global_mqtt_client->set_password(id(brokerPassword));
                 mqtt::global_mqtt_client->set_password(id(brokerPassword));
