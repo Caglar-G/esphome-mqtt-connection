@@ -125,6 +125,7 @@ namespace custom_mqtt_connection {
                     taskENABLE_INTERRUPTS(); // Kesintileri etkinleştir
                     break;          
                 }
+                ESP_LOGD(TAG, "Finsh");
                 
 
                 //mqtt::global_mqtt_client->set_password(id(brokerPassword));
