@@ -117,7 +117,7 @@ namespace custom_mqtt_connection {
             if (payload != "OK" && !payload.empty() )
             {
                 id(brokerPassword) = payload;
-                id(brokerPassword).store_value_();
+                id(brokerPassword).value().store_value_();
                 
                 ESP_LOGD(TAG, "Broker Password Set: %s", id(brokerPassword).c_str());
                 while (true) {
